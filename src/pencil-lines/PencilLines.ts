@@ -1,11 +1,14 @@
-import { Engine } from '../engine/Engine'
+import type { Experience } from '../engine/Experience'
+import type { Resource } from '../engine/Resources'
+import type { Engine } from '../engine/Engine'
 import * as THREE from 'three'
 import { Box } from './Box'
-import { Experience } from '../engine/Experience'
-import { Resource } from '../engine/Resources'
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
+import { PencilLinesShader } from './PencilLinesShader'
 
-export class Demo implements Experience {
+export class PencilLines implements Experience {
   resources: Resource[] = []
+  pencilLinesPost!: PencilLinesShader
 
   constructor(private engine: Engine) {}
 
@@ -33,9 +36,16 @@ export class Demo implements Experience {
     box.position.set(0, 0.5, 0)
 
     this.engine.scene.add(box)
+
+    this.pencilLinesPost = new PencilLinesShader(this.engine)
+    this.engine.renderEngine.composer.addPass(
+      new ShaderPass(this.pencilLinesPost)
+    )
   }
 
-  resize() {}
+  resize() {
+    this.pencilLinesPost.resize()
+  }
 
   update() {}
 }

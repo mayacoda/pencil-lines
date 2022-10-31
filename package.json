@@ -15,11 +15,11 @@
   },
   "type": "module",
   "dependencies": {
-    "lil-gui": "^0.16.1",
-    "three": "^0.141.0"
+    "lil-gui": "^0.17.0",
+    "three": "^0.146.0"
   },
   "devDependencies": {
-    "@types/three": "^0.141.0",
+    "@types/three": "^0.144.0",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "2.7.1",

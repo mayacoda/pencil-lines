@@ -3,18 +3,28 @@ import type { Resource } from '../engine/Resources'
 import type { Engine } from '../engine/Engine'
 import * as THREE from 'three'
 import { Box } from './Box'
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass'
-import { PencilLinesShader } from './PencilLinesShader'
+import { PencilLinesPass } from './PencilLinesPass'
 
 export class PencilLines implements Experience {
-  resources: Resource[] = []
-  pencilLinesPost!: PencilLinesShader
+  resources: Resource[] = [
+    {
+      name: 'colorNoiseTexture',
+      type: 'texture',
+      path: 'textures/color-noise.png',
+    },
+    {
+      name: 'cloudTexture',
+      type: 'texture',
+      path: 'textures/cloud-noise.png',
+    },
+  ]
+  pencilLinesPass!: PencilLinesPass
 
   constructor(private engine: Engine) {}
 
   init() {
     const plane = new THREE.Mesh(
-      new THREE.PlaneBufferGeometry(10, 10),
+      new THREE.PlaneGeometry(10, 10),
       new THREE.MeshStandardMaterial({ color: 0xffffff })
     )
 
@@ -27,6 +37,8 @@ export class PencilLines implements Experience {
     let directionalLight = new THREE.DirectionalLight(0xffffff, 1)
     directionalLight.castShadow = true
     directionalLight.position.set(2, 2, 2)
+    directionalLight.shadow.mapSize.width = 2048
+    directionalLight.shadow.mapSize.height = 2048
 
     this.engine.scene.add(directionalLight)
 
@@ -37,14 +49,8 @@ export class PencilLines implements Experience {
 
     this.engine.scene.add(box)
 
-    this.pencilLinesPost = new PencilLinesShader(this.engine)
-    this.engine.renderEngine.composer.addPass(
-      new ShaderPass(this.pencilLinesPost)
-    )
-  }
-
-  resize() {
-    this.pencilLinesPost.resize()
+    this.pencilLinesPass = new PencilLinesPass(this.engine)
+    this.engine.renderEngine.composer.addPass(this.pencilLinesPass)
   }
 
   update() {}

@@ -8,9 +8,20 @@ export class PencilLinesShader extends ShaderMaterial implements GameEntity {
   constructor(private engine: Engine) {
     super({
       uniforms: {
-        tDiffuse: { value: null },
+        uDiffuse: { value: null },
         uResolution: {
           value: new Vector2(1, 1),
+        },
+        uDepthBuffer: { value: null },
+        uSurfaceBuffer: { value: null },
+        uCameraNear: { value: engine.camera.instance.near },
+        uCameraFar: { value: engine.camera.instance.far },
+
+        uColorTexture: {
+          value: engine.resources.getItem('colorNoiseTexture'),
+        },
+        uCloudTexture: {
+          value: engine.resources.getItem('cloudTexture'),
         },
       },
       fragmentShader,
@@ -26,7 +37,6 @@ export class PencilLinesShader extends ShaderMaterial implements GameEntity {
   update() {}
 
   resize() {
-    console.log('resize')
     this.uniforms.uResolution.value = new Vector2(
       this.engine.sizes.width,
       this.engine.sizes.height

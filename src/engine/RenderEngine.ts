@@ -21,13 +21,16 @@ export class RenderEngine implements GameEntity {
     this.renderer.toneMappingExposure = 1.75
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-    this.renderer.setClearColor('#000000')
+    this.renderer.setClearColor('#ddd')
     this.renderer.setSize(this.engine.sizes.width, this.engine.sizes.height)
     this.renderer.setPixelRatio(Math.min(this.engine.sizes.pixelRatio, 2))
 
     this.composer = new EffectComposer(this.renderer)
 
-    const renderPass = new RenderPass(this.engine.scene, this.engine.camera.instance)
+    const renderPass = new RenderPass(
+      this.engine.scene,
+      this.engine.camera.instance
+    )
     this.composer.addPass(renderPass)
   }
 
@@ -36,6 +39,8 @@ export class RenderEngine implements GameEntity {
   }
 
   resize() {
+    this.renderer.setSize(this.engine.sizes.width, this.engine.sizes.height)
+    this.composer.setSize(this.engine.sizes.width, this.engine.sizes.height)
     this.composer.render()
   }
 }

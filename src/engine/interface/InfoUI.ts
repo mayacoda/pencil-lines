@@ -1,4 +1,6 @@
 import './info.scss'
+import gitHubLogo from '../../../assets/github.png'
+import twitterLogo from '../../../assets/twitter.png'
 
 export type InfoConfig = {
   twitter?: string
@@ -31,14 +33,14 @@ ${
 ${
   config.twitter
     ? `<a href="${config.twitter}" class="social-button" target="_blank"> 
-    <img src="../../../assets/twitter.png" alt="Twitter logo linking to profile" />
+    <img src="${twitterLogo}" alt="Twitter logo linking to profile" />
   </a>`
     : ``
 }
 ${
   config.github
     ? `<a href="${config.github}" class="social-button" target="_blank">
-    <img src="../../../assets/github.png" alt="Github logo linking to repository" />
+    <img src="${gitHubLogo}" alt="Github logo linking to repository" />
   </a>`
     : ``
 }

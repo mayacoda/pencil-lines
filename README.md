@@ -1,6 +1,6 @@
 # Sketchy Pencil Lines Post-Processing Effect
 
-This scaffolding lets you easily get started with using Three.js and TypeScript.
+✏️[Link to live demo](https://pencil-lines-mayacoda.vercel.app/)
 
 ![example scene](./assets/docs/screenshot.jpg)
 

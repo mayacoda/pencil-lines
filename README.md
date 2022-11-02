@@ -1,6 +1,6 @@
 # Sketchy Pencil Lines Post-Processing Effect
 
-✏️[Link to live demo](https://pencil-lines-mayacoda.vercel.app/)
+✏️[Link to live demo](https://pencil-lines.vercel.app/)
 
 ![example scene](./assets/docs/screenshot.jpg)
 
